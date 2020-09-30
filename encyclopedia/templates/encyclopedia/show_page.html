@@ -1,0 +1,23 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+{{ file_name }}
+{% endblock %}
+
+{% block body %}
+{% if page %}
+<h1>{{ file_name }}</h1>
+
+{% if success%}
+<h3>{{ success }}</h3>
+{% endif %}
+
+<hr>
+{{ page }}
+<hr>
+
+<a href="{% url 'edit' file_name %}">Edit</a>
+{% else %}
+<h1>Any page with that name was found, try again!</h1>
+{% endif %}
+{% endblock %}

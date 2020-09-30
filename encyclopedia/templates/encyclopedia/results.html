@@ -1,0 +1,19 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Results
+{% endblock %}
+
+
+{% block body %}
+<p>This is the results page!</p>
+{{ searchResult }}
+{{ blankSearch }}
+{{ errorMessage }}
+<ul>
+    {% for item in result %}
+    <li><a href="{% url 'showPage' item %}">{{ item }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
