@@ -49,6 +49,7 @@ def create(request):
     else:
         return render(request, "encyclopedia/create.html")
 
+#Search
 def search(request):
     if 'searchField' in request.GET:
         searchField = request.GET['searchField']
