@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from . import util
+import markdown2
+import random
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -12,6 +14,9 @@ def index(request):
 def showPage(request, name):
 
     page = util.get_entry(name)
+
+    markdowner = markdown2.Markdown()
+    page = markdowner.convert(page)
 
     return render(request, "encyclopedia/show_page.html", {
         "page" : page, "file_name": name
@@ -49,17 +54,19 @@ def create(request):
     else:
         return render(request, "encyclopedia/create.html")
 
-#Search
+
+
 def search(request):
     if 'searchField' in request.GET:
         searchField = request.GET['searchField']
         if searchField == "":
             return render(request, "encyclopedia/results.html",{
-                "blankSearch" : "Fill up the form"
+                "blankSearch" : "Please, fill up the form with the entry name you're looking for.."
             })
         ''' If page exists open up  '''
         if util.get_entry(searchField):
             return showPage(request,searchField)
+        
         #Create function to list similar search results here
         else:
             # Getting all wiki entries
@@ -70,6 +77,7 @@ def search(request):
             return render(request, "encyclopedia/results.html", {
                 "result":result
         })
+
     #If trying to hardcode the adress in browser show error message
     else:
         return render(request, "encyclopedia/results.html", {
@@ -77,3 +85,8 @@ def search(request):
         })
 
 
+def randomPage(request):
+    entriesList = util.list_entries()
+    randomChoice = random.choice(entriesList)
+
+    return HttpResponseRedirect(reverse("showPage", kwargs={'name': randomChoice}))

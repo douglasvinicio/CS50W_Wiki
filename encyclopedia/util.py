@@ -16,19 +16,10 @@ def get_entry(title):
     except FileNotFoundError:
         return None
 
+#Saves an encyclopedia entry, given its title and Markdown content. If an existing entry with the same title already exists, it is replaced.
 def save_entry(title, content):
     filename = f"entries/{title}.md"
     if default_storage.exists(filename):
         default_storage.delete(filename)
     default_storage.save(filename, ContentFile(content))
 
-
-#Saves an encyclopedia entry, given its title and Markdown content. If an existing entry with the same title already exists, it is replaced.
-def create_entry(title):
-    filename = f"entries/{title}.md"
-    default_storage.save(filename)
-
-def delete_entry(title):
-    filename = f"entries/{title}.md"
-    if default_storage.exists(filename):
-            default_storage.delete(filename)

@@ -6,10 +6,17 @@ Results
 
 
 {% block body %}
-<p>This is the results page!</p>
+<h1>Results</h1>
 {{ searchResult }}
+
+<!-- Error message if form is blank -->
 {{ blankSearch }}
-{{ errorMessage }}
+
+<!-- Error message if trying to hard code the address -->
+{% if errorMessage %}
+<h3>{{ errorMessage }}</h3>
+{% endif %}
+
 <ul>
     {% for item in result %}
     <li><a href="{% url 'showPage' item %}">{{ item }}</a></li>
