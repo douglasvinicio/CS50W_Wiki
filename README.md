@@ -1,1 +1,1 @@
-# CS50W_Wiki
+# CS50W Wiki-Wizard
